@@ -23,7 +23,6 @@ import main.ServiceImpl;
 
 
 @WebListener
-@Slf4j
 public class AppContextListener implements ServletContextListener {
 	private static DataSource dataSource;
 	private static SqlSessionFactory sessionFactory;
