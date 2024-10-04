@@ -8,17 +8,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.ServiceImpl;
+import org.apache.ibatis.session.SqlSession;
+
 import material.AppContextListener;
 
 // 작성자 : 이나겸
 
-@WebServlet("/manage")
-public class ManageServlet extends HttpServlet {
+@WebServlet("/totalSales")
+public class TotalSalesServlet extends HttpServlet {
 	AppContextListener app;
 	ManageServiceImpl manageServiceImpl = ManageServiceImpl.getInstance();
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/manage.jsp").forward(req, resp);
+		app = new AppContextListener();
+		
+		try (SqlSession sqlSession = app.getSqlSession()) {
+			ManageMapper manageMapper = sqlSession.getMapper(ManageMapper.class);
+			int totalSales = manageMapper.getAllSales();
+			
+			req.setAttribute("totalSales", totalSales);
+			
+			req.getRequestDispatcher("/WEB-INF/views/totalSales.jsp").forward(req, resp);
+		}
 	}
 }

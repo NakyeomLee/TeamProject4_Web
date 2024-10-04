@@ -20,6 +20,7 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import lombok.extern.slf4j.Slf4j;
 import main.Mapper;
 import main.ServiceImpl;
+import management.ManageMapper;
 
 
 @WebListener
@@ -40,6 +41,7 @@ public class AppContextListener implements ServletContextListener {
 		
 		Configuration configuration = new Configuration(environment);
 		configuration.addMapper(Mapper.class);
+		configuration.addMapper(ManageMapper.class);
 		sessionFactory = new SqlSessionFactoryBuilder().build(configuration);
 	}
 

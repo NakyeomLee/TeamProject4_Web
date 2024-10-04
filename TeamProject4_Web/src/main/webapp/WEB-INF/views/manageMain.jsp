@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>관리자 페이지</title>
+<title>관리자 메인 페이지</title>
 <style type="text/css">
 body {
     font-family: Arial, sans-serif;
@@ -101,7 +101,7 @@ main {
             </div>
             <div class="label">판매</div>
             <div class="menu-item">
-                <a href="/allSales">총 매출</a>
+                <a href="/totalSales">총 매출</a>
             </div>
             <div class="menu-item">
                 <a href="/purchaseStatus">소비자 구매 현황</a>
