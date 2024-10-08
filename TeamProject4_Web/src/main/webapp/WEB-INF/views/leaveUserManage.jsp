@@ -1,17 +1,13 @@
 <!-- 작성자 : 이나겸 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!-- 태그 라이브러리 중 jstl의 core -->
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!-- 태그 라이브러리 중 jstl의 fmt -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<html lang="ko">
 <html>
 <head>
 <meta charset="UTF-8">
-<title>소비자 구매 현황 페이지</title>
+<title>탈퇴 회원 관리 페이지</title>
 <style type="text/css">
 body {
 	font-family: Arial, sans-serif;
@@ -40,12 +36,12 @@ nav .logo {
 }
 
 main {
-	display: flex;
-	flex-direction: column;
-	align-items: center; /* 수평 중앙 정렬 */
-	width: 100%;
-	padding-top: 170px; /* header 높이와 여유 공간을 줌 */
-	overflow-y: auto; /* 내용이 많아지면 스크롤이 생기도록 설정 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 수평 중앙 정렬 */
+    width: 100%;
+    padding-top: 170px; /* header 높이와 여유 공간을 줌 */
+    overflow-y: auto; /* 내용이 많아지면 스크롤이 생기도록 설정 */
 }
 
 .panel {
@@ -82,8 +78,24 @@ th {
 	background-color: #f2f2f2;
 }
 
-.panel:hover { /* panel에 마우스 호버 시 그림자 확대 */
+/* panel에 마우스 호버 시 그림자 확대 */
+.panel:hover {
 	box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+button {
+	border: 1px solid #ddd; /* 표와 동일한 테두리 색상 */
+	border-radius: 5px; /* 테두리를 둥글게 설정 */
+	padding: 5px 10px;
+	background-color: #f2f2f2;
+	color: #000;
+	cursor: pointer;
+}
+
+/* 버튼에 마우스 호버 시 효과 */
+button:hover {
+	background-color: #f2f2f2;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 </style>
 </head>
@@ -92,35 +104,34 @@ th {
 		<nav>
 			<div class="logo">
 				<h1>Web Project 홈페이지</h1>
-				<h2>소비자 구매 현황</h2>
+				<h2>회원 관리</h2>
 			</div>
 		</nav>
 	</header>
 	<main>
 		<div class="panel">
-			<h3>소비자 별 구매 현황</h3>
+			<h3>탈퇴 회원 목록</h3>
+			<div>
+				탈퇴 회원 :
+				<%=request.getAttribute("leaveUserCount")%>명
+			</div>
 			<table>
 				<thead>
 					<tr>
 						<th>아이디</th>
 						<th>이름</th>
 						<th>전화번호</th>
-						<th>배송지</th>
-						<th>회원등급</th>
-						<th>총 구매금액</th>
+						<th>회원계정복구</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="purchase" items="${purchaseStatusList}">
+					<!-- forEach로 leaveList 순회해서 표에 탈퇴 회원을 다 나타낼수 있도록 함 -->
+					<c:forEach var="user" items="${leaveList}">
 						<tr>
-							<td>${purchase.user_id}</td>
-							<td>${purchase.user_name}</td>
-							<td>${purchase.user_phone}</td>
-							<td>${purchase.user_address}</td>
-							<td>${purchase.user_grade}</td>
-							<!-- fmt:formatNumber 이용해서 금액을 나타내는 숫자에 1000단위로 쉼표 추가 -->
-							<td><fmt:formatNumber value="${purchase.user_useMoney}"
-									type="number" pattern="#,##0" />원</td>
+							<td>${user.user_id}</td>
+							<td>${user.user_name}</td>
+							<td>${user.user_phone}</td>
+							<td><button>복원</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>

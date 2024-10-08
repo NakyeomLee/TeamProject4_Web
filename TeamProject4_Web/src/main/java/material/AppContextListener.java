@@ -45,6 +45,7 @@ public class AppContextListener implements ServletContextListener {
 		sessionFactory = new SqlSessionFactoryBuilder().build(configuration);
 	}
 
+	// 학원에서 작업할때 DB 연결
 	private void initDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");

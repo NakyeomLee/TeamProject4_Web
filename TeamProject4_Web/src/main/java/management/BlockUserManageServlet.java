@@ -15,25 +15,29 @@ import material.AppContextListener;
 
 // 작성자 : 이나겸
 
-@WebServlet("/purchaseStatus")
-public class PurchaseStatusServlet extends HttpServlet {
+@WebServlet("/blockUserManage")
+public class BlockUserManageServlet extends HttpServlet {
 	AppContextListener app;
 	ManageServiceImpl manageServiceImpl = ManageServiceImpl.getInstance();
-
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		app = new AppContextListener();
 		
-		List<JoinUser> purchaseStatusList = null; // 소비자 구매 현황 리스트
+		List<JoinUser> blackList = null; // 차단 회원 리스트
 		
-		try (SqlSession sqlSession = app.getSqlSession()){
+		try (SqlSession sqlSession = app.getSqlSession()) {
 			ManageMapper manageMapper = sqlSession.getMapper(ManageMapper.class);
 			
-			purchaseStatusList = manageMapper.getPurchaseStatus();
+			blackList = manageMapper.getBlockUser();
+			
+			// 차단 회원 수
+			int blockUserCount = manageMapper.getBlockUserCount();
+			req.setAttribute("blockUserCount", blockUserCount);
 		}
 		
-		req.setAttribute("purchaseStatusList", purchaseStatusList);
+		req.setAttribute("blackList", blackList);
 		
-		req.getRequestDispatcher("/WEB-INF/views/purchaseStatus.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/blockUserManage.jsp").forward(req, resp);
 	}
 }

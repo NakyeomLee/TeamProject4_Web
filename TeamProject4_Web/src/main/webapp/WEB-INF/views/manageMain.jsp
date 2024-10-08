@@ -9,26 +9,26 @@
 <title>관리자 메인 페이지</title>
 <style type="text/css">
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f4f4f4;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    width: 100%;
+	background-color: #333;
+	color: #fff;
+	padding: 10px 0;
+	width: 100%;
 }
 
 nav .logo {
-    text-align: center;
+	text-align: center;
 }
 
 main {
@@ -97,7 +97,13 @@ main {
         <div class="panel">
             <div class="label">회원</div>
             <div class="menu-item">
-                <a href="/userManage">회원 관리</a>
+                <a href="/userManage">가입 회원 관리</a>
+            </div>
+            <div class="menu-item">
+                <a href="/blockUserManage">차단 회원 관리</a>
+            </div>
+            <div class="menu-item">
+                <a href="/leaveUserManage">탈퇴 회원 관리</a>
             </div>
             <div class="label">판매</div>
             <div class="menu-item">
@@ -109,9 +115,9 @@ main {
             <div class="menu-item">
                 <a href="/productStatus">상품 입출고 현황</a>
             </div>
-            <div class="label">설정</div>
+            <div class="label">관리</div>
             <div class="menu-item">
-                <a href="/addProduct">상품 추가</a>
+                <a href="/productManage">상품 관리</a>
             </div>
         </div>
     </main>
