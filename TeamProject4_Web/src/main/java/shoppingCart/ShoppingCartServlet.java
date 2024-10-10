@@ -33,7 +33,6 @@ public class ShoppingCartServlet extends HttpServlet {
 		try {
 			HttpSession session = req.getSession();
 
-			session.setAttribute("userId", "nana1234");
 			String userId = (String) session.getAttribute("userId");
 			List<ShoppingCartItem> shoppingCartList = serviceImpl.selectShoppingCart(userId);
 
