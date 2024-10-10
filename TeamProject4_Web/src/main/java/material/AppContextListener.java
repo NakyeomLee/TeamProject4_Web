@@ -56,6 +56,17 @@ public class AppContextListener implements ServletContextListener {
 		AppContextListener.dataSource = dataSource;
 	}
 	
+	// 집에서 작업할때 DB 연결 (이나겸)
+//	private void initDataSource() {
+//		BasicDataSource dataSource = new BasicDataSource();
+//		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/lp");
+//		dataSource.setUsername("root");
+//		dataSource.setPassword("root");
+//		
+//		AppContextListener.dataSource = dataSource;
+//	}
+
 	public static Connection getConnection() throws SQLException {
 		return dataSource.getConnection();
 	}

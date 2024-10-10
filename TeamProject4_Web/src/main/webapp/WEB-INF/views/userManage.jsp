@@ -60,6 +60,46 @@ main {
 	margin-bottom: 10px;
 }
 
+#searchPanel {
+    display: flex; /* Flexbox 활성화 */
+    justify-content: flex-start; /* 요소들을 왼쪽으로 정렬 */
+    align-items: center; /* 요소들을 수직 중앙 정렬 */
+}
+
+#searchPanel table {
+    border: none; /* 테두리 제거 */
+    margin: 0; /* 기본 마진 제거 */
+    padding: 0; 
+}
+
+#searchPanel td {
+    border: none; /* 칸의 테두리 제거 */
+    padding: 2px; 
+    margin: 0; /* 칸 간의 여백 제거 */
+}
+
+#searchPanel select,
+#searchPanel input[type="text"],
+#searchPanel input[type="submit"] {
+    border-radius: 5px; /* 둥글게 설정 */
+    border: 1px solid #ddd; /* 테두리 색상 설정 */
+    height: 30px; /* 높이 설정 */
+    padding: 0 8px; /* 좌우 패딩 */
+    margin: 0; /* 기본 마진 제거 */
+    box-sizing: border-box; /* 패딩과 테두리를 포함한 총 높이와 너비 계산 */
+}
+
+#searchPanel input[type="submit"] {
+    background-color: #f2f2f2; /* 버튼 배경 색상 */
+    color: #000; /* 버튼 텍스트 색상 */
+    cursor: pointer; /* 커서 모양 변경 */
+}
+
+/* 버튼에 마우스 호버 시 효과 */
+#searchPanel input[type="submit"]:hover {
+    background-color: #e0e0e0; /* 호버 시 버튼 색상 변경 */
+}
+
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -98,6 +138,30 @@ button:hover {
 	background-color: #f2f2f2;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.gradeSelect {
+    border-radius: 5px; /* 테두리 둥글게 설정 */
+    border: 1px solid #ddd; /* 테두리 색상 설정 */
+    height: 30px; /* 높이 설정 */
+    padding: 0 8px; /* 좌우 패딩 */
+    box-sizing: border-box; /* 패딩과 테두리를 포함한 총 높이와 너비 계산 */
+}
+
+.btnChangeGrade {
+    border: 1px solid #ddd; /* 드롭박스와 동일한 테두리 색상 */
+    border-radius: 5px; /* 테두리를 둥글게 설정 */
+    height: 30px; /* 드롭박스와 맞추기 위한 높이 설정 */
+    padding: 5px 10px; /* 패딩 추가 */
+    background-color: #f2f2f2; /* 버튼 배경 색상 */
+    color: #000; /* 버튼 텍스트 색상 */
+    cursor: pointer; /* 커서 모양 변경 */
+}
+
+/* 버튼에 마우스 호버 시 효과 */
+.btnChangeGrade:hover {
+    background-color: #e0e0e0; /* 호버 시 버튼 색상 변경 */
+}
+
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -116,9 +180,31 @@ button:hover {
 	<main>
 		<div class="panel">
 			<h3>가입 회원 목록</h3>
-			<div id="userCount">
-				총 회원수 :
-				<%=request.getAttribute("joinUserCount")%>명
+			<div class="panel2">
+				<div style="display: flex; justify-content: space-between; align-items: center;">
+					<div id="userCount">
+						총 회원수 : <%=request.getAttribute("joinUserCount")%>명
+					</div>
+					<div id="searchPanel">
+						<form action="/searchUser" method="GET">
+							<table>
+								<tr>
+									<td><select class="searchOption" name="searchField">
+											<option value="0">선택</option>
+											<option value="userId">회원아이디</option>
+											<option value="userGrade">회원등급</option>
+											<option value="userGender">성별</option>
+										</select>
+									</td>
+									<td><input type="text" class="searchOption"
+										placeholder="검색어 입력" name="sertchText" maxlength="100">
+									</td>
+									<td><input type="submit" value="검색"></td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
 			</div>
 			<table>
 				<thead>
@@ -157,16 +243,18 @@ button:hover {
 							<td>
 								<!-- 등급 선택할 드롭박스 --> 
 								<select class="gradeSelect">
-									<option value="준회원" ${user.user_grade == '준회원' ? 'selected' : ''}>준회원</option>
-									<option value="일반" ${user.user_grade == '일반' ? 'selected' : ''}>일반</option>
-									<option value="VIP" ${user.user_grade == 'VIP' ? 'selected' : ''}>VIP</option>
+									<option value="준회원"
+										${user.user_grade == '준회원' ? 'selected' : ''}>준회원</option>
+									<option value="일반" 
+										${user.user_grade == '일반' ? 'selected' : ''}>일반</option>
+									<option value="VIP"
+										${user.user_grade == 'VIP' ? 'selected' : ''}>VIP</option>
 								</select> 
 								<!-- 변경 버튼을 누를 때 changeGrade() 호출 -->
 								<button class="btnChangeGrade" data-user-id="${user.user_id}">변경</button>
 							</td>
 							<td>
-								<button class="btnUserBlock"
-									data-user-id="${user.user_id}">차단</button>
+								<button class="btnUserBlock" data-user-id="${user.user_id}">차단</button>
 							</td>
 						</tr>
 					</c:forEach>

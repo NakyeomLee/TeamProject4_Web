@@ -18,7 +18,7 @@ import main.ServiceImpl;
 import material.AppContextListener;
 
 // 작성자 : 이나겸
-
+// /userManage/search? => 검색용 서블릿 하나 더 만드는 경우에 쓸 URL / ?에는 파라미터값을 받는다는 조건 하에 쓰는것
 @WebServlet("/userManage")
 public class UserManageServlet extends HttpServlet {
 	AppContextListener app;
@@ -41,7 +41,6 @@ public class UserManageServlet extends HttpServlet {
 		}
 
 		req.setAttribute("userList", userList);
-
 		req.getRequestDispatcher("/WEB-INF/views/userManage.jsp").forward(req, resp);
 	}
 
@@ -62,7 +61,7 @@ public class UserManageServlet extends HttpServlet {
 			Gson gson = new Gson();
 			String jsonDeliveryAddress = gson.toJson(deliveryAddresses);
 
-			resp.setContentType("application/json");
+			resp.setHeader("Content-Type", "application/json; charset=utf-8");
 			resp.setCharacterEncoding("UTF-8");
 			resp.getWriter().write(jsonDeliveryAddress);
 		}
@@ -93,40 +92,37 @@ public class UserManageServlet extends HttpServlet {
 
 		try (SqlSession sqlSession = app.getSqlSession()) {
 			
-			if ("changeGrade".equals(action)) {
-				// 회원 등급 수정
+			if ("changeGrade".equals(action)) { // 회원 등급 수정
+				
 				JoinUser updatedGrade = manageService.updateUserGrade(joinUser);
 				
-				if (updatedGrade != null) {
+				if (updatedGrade != null) { // 회원 등급 수정 성공했을 경우
 					resp.setStatus(HttpServletResponse.SC_OK);
 					resp.getWriter().write("회원 등급이 성공적으로 수정되었습니다.");
-					System.out.println("회원등급수정성공, 디비 들어감");
 					
-				} else {
+				} else { // 회원 등급 수정 실패했을 경우
 					resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					resp.getWriter().write("회원 등급 수정이 실패하였습니다.");
-					System.out.println("회원등급수정실패, 디비 안들어감");
 				}
 				
-			} else if ("blockUser".equals(action)) {
-				// 회원 차단
+			} else if ("blockUser".equals(action)) { // 회원 차단
+				
 				JoinUser blockedUser = manageService.updateUserBlock(joinUser);
 				
-				if (blockedUser != null) {
+				if (blockedUser != null) { // 회원 차단 성공했을 경우
 					resp.setStatus(HttpServletResponse.SC_OK);
 					resp.getWriter().write("회원이 차단되었습니다.");
-					System.out.println("회원차단성공, 디비 들어감");
 					
-				} else {
+				} else { // 회원 차단 실패했을 경우
 					resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					resp.getWriter().write("회원 차단이 실패하였습니다.");
-					System.out.println("회원차단실패, 디비 안들어감");
 				}
 			}
 			
 		} catch (Exception e) {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			resp.getWriter().write("서버 오류가 발생했습니다.");
+			
 			e.printStackTrace();
 		}
 	}

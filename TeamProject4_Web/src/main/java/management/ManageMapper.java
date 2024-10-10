@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import lombok.experimental.PackagePrivate;
+
 // 작성자 : 이나겸
 
 public interface ManageMapper {
@@ -30,8 +32,31 @@ public interface ManageMapper {
 	@Select("select count(*) from lp.user where user_block != 1 and user_id != 'admin'")
 	int getJoinUserCount();
 	
-	// 회원 등급 별 조회
-//	@Select()
+	// 회원 아이디로 회원 조회
+	@Select("SELECT a.user_id, a.user_name, a.user_gender, a.user_birth, a.user_phone, a.user_address, a.user_grade, \r\n"
+			+ "(SELECT b.deliveryaddress FROM deliveryaddress AS b WHERE b.user_id = a.user_id LIMIT 1) AS deliveryaddress \r\n"
+			+ "FROM user AS a WHERE a.user_block != 1 AND a.user_id = #{user_id}")
+	List<JoinUser> getSelectById(@Param("user_id") String userId);
+	
+	// 등급 별 회원 목록 조회
+	@Select("SELECT a.user_id, a.user_name, a.user_gender, a.user_birth, a.user_phone, a.user_address, a.user_grade, \r\n"
+			+ "(SELECT b.deliveryaddress FROM deliveryaddress AS b WHERE b.user_id = a.user_id LIMIT 1) AS deliveryaddress \r\n"
+			+ "FROM user AS a WHERE a.user_block != 1 AND a.user_grade = #{user_grade}")
+	List<JoinUser> getSelectByGrade(@Param("user_grade") String user_grade);
+	
+	// 등급 별 회원 수 조회
+	@Select("select count(*) from user where user_block != 1 and user_grade = #{user_grade}")
+	int getCountByGrade(@Param("user_grade") String user_grade);
+	
+	// 성별 별 회원 목록 조회
+	@Select("SELECT a.user_id, a.user_name, a.user_gender, a.user_birth, a.user_phone, a.user_address, a.user_grade, \r\n"
+			+ "(SELECT b.deliveryaddress FROM deliveryaddress AS b WHERE b.user_id = a.user_id LIMIT 1) AS deliveryaddress \r\n"
+			+ "FROM user AS a WHERE a.user_block != 1 AND a.user_id != 'admin' AND a.user_gender = #{user_gender}")
+	List<JoinUser> getSelectByGender(@Param("user_gender") String user_gender);
+	
+	// 성별 별 회원 수 조회
+	@Select("select count(*) from user where user_block != 1 and user_id != 'admin' and user_gender = #{user_gender}")
+	int getCountByGender(@Param("user_gender") String user_gender);
 	
 	// 회원 등급 변경
 	@Update("update user set user_grade = #{user_grade} where user_id = #{user_id}")
