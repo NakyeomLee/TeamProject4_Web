@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import clothdetail.Review;
 import image.ClothImage;
 import image.Image;
 import material.AppContextListener;
 import material.Cloth;
+import payment.PayCloth;
 import shoppingCart.ShoppingCartItem;
 
 public class ServiceImpl implements Service {
@@ -149,6 +151,59 @@ public class ServiceImpl implements Service {
 		}
 		return false;
 	}
+	
+	public boolean addToClothInShoppingCart(String userId, int cloth_num) {
+		try (SqlSession sqlSession = AppContextListener.getSqlSession()) {
+			Mapper mapper = sqlSession.getMapper(Mapper.class);
+			Integer result = mapper.findUserShoppingCartDetail(userId, cloth_num);
+			if (result != null) {
+				int updateResult = mapper.updateUserShoppingCartDetail((result+1), userId, cloth_num);
+				if (updateResult == 1) {
+					sqlSession.commit();
+					return true;
+				}
+				
+			} else {
+				int insertResult = mapper.insertUserShoppingCartDetail(userId, cloth_num);
+				if (insertResult == 1) {
+					sqlSession.commit();
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public List<PayCloth> findUserClothsToPay(String userId) {
+		
+		try (SqlSession sqlSession = AppContextListener.getSqlSession()) {
+			Mapper mapper = sqlSession.getMapper(Mapper.class);
+			List<PayCloth> clothList = mapper.findUserClothsToPay(userId);
+			return clothList;
+		}
+		
+	}
+
+	public boolean insertReview(Review review) {
+		try (SqlSession sqlSession = AppContextListener.getSqlSession()) {
+			Mapper mapper = sqlSession.getMapper(Mapper.class);
+			int result = mapper.insertReview(review.getUser_ID(), review.getCloth_num(), review.getReviewDetail(), review.getGood_or_bad());
+			if (result == 1) {
+				mapper.updateUserStatus(review.getUser_ID(), review.getCloth_num());
+				if (review.getGood_or_bad().equals("good")) {
+					mapper.updateClothGood(review.getCloth_num());
+				} else if (review.getGood_or_bad().equals("bad")) {
+					mapper.updateClothBad(review.getCloth_num());
+				}
+					
+				sqlSession.commit();
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 
 	@Override
 	public int insertPayment(ShoppingCartItem order) {
@@ -162,5 +217,14 @@ public class ServiceImpl implements Service {
 			}
 		}
 		return 0;
+	}
+
+	public int lastInsertClothNum() {
+		try (SqlSession sqlSession = AppContextListener.getSqlSession()) {
+			Mapper mapper = sqlSession.getMapper(Mapper.class);
+			int result = mapper.ClothLastNum();
+			return result;
+		}
+		
 	}
 }

@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>옷 상세 페이지</title>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style type="text/css">
 .image-container {
 	position: relative;
@@ -113,6 +114,7 @@ button:hover {
 .detailimage {
 	display: block;
 	margin: 0 auto; 
+	width: 500px;
 }
 </style>
 
@@ -241,3 +243,5 @@ button:hover {
 </script>
 
 </html>
+
+
