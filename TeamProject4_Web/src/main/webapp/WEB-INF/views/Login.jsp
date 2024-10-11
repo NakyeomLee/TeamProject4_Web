@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
-<link rel="stylesheet" type="text/css" href="/login/Login.css">
+<link rel="stylesheet" type="text/css" href="./login/Login.css">
 </head>
 <body>
 	<div class="login-page">
@@ -16,21 +16,18 @@
 			</div>
 
 			<div class="login">
-				<label for="Password">비밀번호</label> <input type="password"
-					id="Password" name="Password" required>
+				<label for="Password">비밀번호</label> <input type="password" id="pw"
+					name="pw" required>
 			</div>
-
-			<button class="login-btn" type="button" onclick="submitForm()">로그인</button>
+			<button class="login-btn" type="submit">로그인</button>
 		</form>
 
 		<div class="login-modify">
 			<button>회원가입</button>
-			<button>아이디/비밀번호찾기</button>
-			<button>취소</button>
+			<button id="search">아이디/비밀번호찾기</button>
+			<button class="cansel" type="button">취소</button>
 		</div>
 	</div>
-<<<<<<< HEAD
-=======
 	<!-- 아이디 비밀번호 뭐찾을지 물어보는 다이얼 -->
 	<dialog class="dialog">
 	<h3>찾고자 하는 버튼을 클릭하세요</h3>
@@ -84,7 +81,9 @@
 
 
 
->>>>>>> branch 'master' of https://github.com/NakyeomLee/TeamProject4_Web.git
 
 </body>
+<script src="./login/login.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 </html>

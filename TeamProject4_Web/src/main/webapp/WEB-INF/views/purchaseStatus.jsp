@@ -8,7 +8,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
-<html>
 <head>
 <meta charset="UTF-8">
 <title>소비자 구매 현황 페이지</title>

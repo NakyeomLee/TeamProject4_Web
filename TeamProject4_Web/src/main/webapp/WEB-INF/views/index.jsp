@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -13,40 +14,13 @@ body {
 	background-color: #f4f4f4;
 }
 
-<<<<<<< HEAD
-header {
-	background-color: #333;
-	color: #fff;
-	padding: 10px 0;
-}
-
-nav ul {
-	list-style: none;
-	padding: 0;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-}
-
-nav ul li {
-	display: inline;
-}
-
-nav ul li a {
-	color: #fff;
-	text-decoration: none;
-	padding: 10px 20px;
-}
-
-.logo {
-	text-align: center;
-}
-
-=======
->>>>>>> branch 'master' of https://github.com/NakyeomLee/TeamProject4_Web.git
 .search {
 	text-align: right;
 	padding: 10px;
+}
+
+main {
+	margin-top: 150px; /* 헤더 높이만큼 마진 추가 */
 }
 
 section {
@@ -69,62 +43,6 @@ footer {
 	color: #fff;
 }
 
-<<<<<<< HEAD
-.link {
-	font-size: 30px;
-}
-
-.info {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0 500px;
-<<<<<<< HEAD
-=======
-}
-
-.swiper-container {
-	width: 600px;
-	height: 400px;
-	margin: 0 auto;
-}
-
-.swiper-slide {
-	text-align: center;
-	font-size: 18px;
-	background: #fff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.slick-prev, .slick-next {
-    font-size: 40px !important;
-    color: black !important;
-    border: none !important;
-    border-radius: 50% !important;
-    width: 50px !important;
-    height: 50px !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    z-index: 1 !important;
-}
-
-.slick-prev:hover, .slick-next:hover {
-    color: black !important;
-}
-
-
-.slider img {
-    max-width: 100%; /* Adjust the width as needed */
-    height: auto;
-    margin: 0 auto; /* Center the images */
->>>>>>> branch 'moohyun' of https://github.com/NakyeomLee/TeamProject4_Web.git
-}
-
-=======
->>>>>>> branch 'master' of https://github.com/NakyeomLee/TeamProject4_Web.git
 .swiper-container {
 	width: 600px;
 	height: 400px;
@@ -157,22 +75,18 @@ footer {
 	color: black !important;
 }
 
-
 .slider img {
 	max-width: 100%; /* Adjust the width as needed */
 	height: auto;
 	margin: 0 auto; /* Center the images */
 }
 
-<<<<<<< HEAD
-=======
 .info {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 500px;
 }
->>>>>>> branch 'master' of https://github.com/NakyeomLee/TeamProject4_Web.git
 </style>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
@@ -183,70 +97,31 @@ footer {
 	src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 </head>
 <body>
-<<<<<<< HEAD
-	<header>
-		<nav>
-			<div class="logo">
-				<h1>Web Project 홈페이지</h1>
-			</div>
-			<ul class="link">
-				<c:if test="${not empty sessionScope.userId}">
-					<p>환영합니다, ${ userId }님!</p>
-				</c:if>
-				<c:if test="${empty sessionScope.userId}">
-<<<<<<< HEAD
-					<li><a href="./user">로그인</a></li>
-=======
-					<li><a href="/TeamProject4_Web/Login">로그인</a></li>
->>>>>>> branch 'moohyun' of https://github.com/NakyeomLee/TeamProject4_Web.git
-					<li><a href="#">회원가입</a></li>
-				</c:if>
-				<li><a href="./search">내게 맞는 옷 찾기</a></li>
-				<li><a href="#">신상품</a></li>
-				<li><a href="#">메뉴</a></li>
-			</ul>
-		</nav>
-	</header>
-=======
-	
+
 	<jsp:include page="/WEB-INF/views/mainBar.jsp"></jsp:include>
->>>>>>> branch 'master' of https://github.com/NakyeomLee/TeamProject4_Web.git
 	<main>
-	
 		<section class="middle">
 			<div class="slider">
-<<<<<<< HEAD
-				
+
 				<div>
-				<img src="/static/image/메인이미지1.PNG" alt="Slide 1">
+					<img src="/static/image/메인이미지1.PNG" alt="Slide 1">
 				</div>
 				<div>
 					<img src="/static/image/메인이미지2.PNG" alt="Slide 2">
 				</div>
 				<div>
-				<img src="/static/image/메인이미지3.PNG" alt="Slide 3">
-=======
-				<div>
-					<img src="data:image/png;base64,<%=session.getAttribute("image1")%>" alt="Slide 1">
-				</div>
-				<div>
-					<img src="data:image/png;base64,<%=session.getAttribute("image2")%>" alt="Slide 2">
-				</div>
-				<div>
-					<img src="data:image/png;base64,<%=session.getAttribute("image3")%>" alt="Slide 3">
->>>>>>> branch 'moohyun' of https://github.com/NakyeomLee/TeamProject4_Web.git
+					<img src="/static/image/메인이미지3.PNG" alt="Slide 3">
 				</div>
 			</div>
 		</section>
-		
 	</main>
+	<jsp:include page="/WEB-INF/views/clothList.jsp"></jsp:include>
 	<footer class="info">
 		<p>전화번호 : 010 - 1234 - 1234</p>
 		<p>이메일 : angus1208@naver.com</p>
 		<p>홈페이지의 모든 자료는 상업적으로 이용되지 않습니다.</p>
 	</footer>
 	<script>
-<<<<<<< HEAD
 		$(document)
 				.ready(
 						function() {
@@ -260,17 +135,6 @@ footer {
 												nextArrow : '<button type="button" class="slick-next">></button>'
 											});
 						});
-=======
-		$(document).ready(function() {
-			$('.slider').slick({
-				autoplay: true,
-				autoplaySpeed: 2000,
-				dots: true,
-				prevArrow: '<button type="button" class="slick-prev"><</button>',
-				nextArrow: '<button type="button" class="slick-next">></button>'
-			});
-		});
->>>>>>> branch 'moohyun' of https://github.com/NakyeomLee/TeamProject4_Web.git
 	</script>
 </body>
 </html>

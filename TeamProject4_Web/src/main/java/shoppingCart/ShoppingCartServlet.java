@@ -32,7 +32,7 @@ public class ShoppingCartServlet extends HttpServlet {
 		app.contextInitialized(null);
 		try {
 			HttpSession session = req.getSession();
-
+			session.setAttribute("userId", "nana1234"); // 임시 확인용 id저장 문장
 			String userId = (String) session.getAttribute("userId");
 			List<ShoppingCartItem> shoppingCartList = serviceImpl.selectShoppingCart(userId);
 
@@ -54,6 +54,7 @@ public class ShoppingCartServlet extends HttpServlet {
 		BufferedReader reader = req.getReader();
 		StringBuilder sb = new StringBuilder();
 		HttpSession session = req.getSession();
+		System.out.println("넘어왔니? " + session.getAttribute("finalTotalPrice"));
 		String line;
 		while ((line = reader.readLine()) != null) {
 			sb.append(line);
