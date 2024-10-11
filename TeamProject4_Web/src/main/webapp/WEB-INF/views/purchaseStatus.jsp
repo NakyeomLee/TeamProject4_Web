@@ -12,6 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>소비자 구매 현황 페이지</title>
+
 <style type="text/css">
 body {
 	font-family: Arial, sans-serif;
@@ -48,6 +49,10 @@ main {
 	overflow-y: auto; /* 내용이 많아지면 스크롤이 생기도록 설정 */
 }
 
+h3 {
+	white-space: nowrap; /* 개행이 일어나지 않도록 */
+}
+
 .panel {
 	background-color: #fff;
 	padding: 20px;
@@ -61,6 +66,64 @@ main {
 	text-align: left;
 	font-size: 20px;
 	margin-bottom: 10px;
+}
+
+.panel2 {
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+	align-items: center;
+}
+
+.panel3 {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.panel4 {
+	style="display: flex; 
+	justify-content: space-between; 
+	align-items: center;"
+}
+
+#searchPanel {
+	display: flex; /* Flexbox 활성화 */
+	justify-content: flex-end; /* 요소들을 오른쪽으로 정렬 */
+	align-items: center; /* 요소들을 수직 중앙 정렬 */
+}
+
+#searchPanel table {
+	border: none; /* 테두리 제거 */
+	margin: 0; /* 기본 마진 제거 */
+	padding: 0;
+}
+
+#searchPanel td {
+	border: none; /* 칸의 테두리 제거 */
+	padding: 2px;
+	margin: 0; /* 칸 간의 여백 제거 */
+}
+
+#searchPanel select, #searchPanel input[type="text"], #searchPanel input[type="submit"]
+	{
+	border-radius: 5px; /* 둥글게 설정 */
+	border: 1px solid #ddd; /* 테두리 색상 설정 */
+	height: 30px; /* 높이 설정 */
+	padding: 0 8px; /* 좌우 패딩 */
+	margin: 0; /* 기본 마진 제거 */
+	box-sizing: border-box; /* 패딩과 테두리를 포함한 총 높이와 너비 계산 */
+}
+
+#searchPanel input[type="submit"] {
+	background-color: #f2f2f2; /* 버튼 배경 색상 */
+	color: #000; /* 버튼 텍스트 색상 */
+	cursor: pointer; /* 커서 모양 변경 */
+}
+
+/* 버튼에 마우스 호버 시 효과 */
+#searchPanel input[type="submit"]:hover {
+	background-color: #e0e0e0; /* 호버 시 버튼 색상 변경 */
 }
 
 table {
@@ -98,7 +161,30 @@ th {
 	</header>
 	<main>
 		<div class="panel">
-			<h3>소비자 별 구매 현황</h3>
+			<div class="panel3">
+				<h3>소비자 별 구매 현황</h3> 
+				<div class="panel2">
+					<div class="panel4">
+						<div id="searchPanel">
+							<form id="searchForm" method="GET" action="searchPurchase">
+								<table>
+									<tr>
+										<td><select id="searchField" class="searchOption"
+											name="searchPurchaseField">
+												<option value="purchaseUserId">회원아이디</option>
+												<option value="purchaseUserName">회원명</option>
+										</select></td>
+										<td><input type="text" id="searchText"
+											class="searchOption" placeholder="검색어 입력"
+											name="searchPurchaseText" maxlength="100"></td>
+										<td><input type="submit" value="검색"></td>
+									</tr>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 			<table>
 				<thead>
 					<tr>

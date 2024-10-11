@@ -55,7 +55,7 @@
 		list = searchCloth;
 	}
 	
-	if (list.size() > 0 && list != null) {
+	if ( list != null && list.size() > 0) {
 		print = true;
 	%>
 	<h1 class="title">Item List</h1>
@@ -66,14 +66,13 @@
 		<%
 		for (int i = 0; i < list.size(); i++) {
 			Cloth cloth = list.get(i);
-			String base64 = cloth.getList_image();
 			if (cloth.getCloth_explanation() != null) {
 				String explanation = cloth.getCloth_explanation().replace("\\n", "\n");
 				String[] arrStr = explanation.split("\n");
 		%>
 		<div class="card">
 			<a href="detailPage?clothNum=<%=cloth.getCloth_num()%>">
-				<img class="image" src="/static/image/cloth/옷<%=cloth.getCloth_num()%>.png" alt="">
+				<img class="image" src="/static/image/cloth/cloth<%=cloth.getCloth_num()%>/옷<%=cloth.getCloth_num()%>.png" alt="">
 			</a>
 			<label class="clothName">
 				<a href="detailPage?clothNum=<%=cloth.getCloth_num()%>" class="clothLink"><%=cloth.getCloth_name()%></a>

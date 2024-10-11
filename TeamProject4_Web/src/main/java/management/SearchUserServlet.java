@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
-import org.json.JSONObject;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

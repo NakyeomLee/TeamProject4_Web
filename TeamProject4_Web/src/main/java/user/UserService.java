@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface UserService {
 	
-	String Pw(String userId);
+	String Pw(String Id);
 	
 	int InsertUser(User user);
 	// 비밀번호 찾기
@@ -23,5 +23,6 @@ public interface UserService {
 	int userChangePw2(String UserId, String Pw);
 	// 회원탈퇴 구현
 	int userLeave(String userId);
-	
+	// 전화번호 있는지 검증
+	List<String> selectPhone();
 }

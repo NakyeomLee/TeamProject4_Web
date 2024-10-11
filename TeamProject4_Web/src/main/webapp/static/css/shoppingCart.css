@@ -2,12 +2,17 @@
 body {
     font-size: 16px; /* 기존 폰트 크기 */
     padding-top: 120px; /* header의 높이만큼 padding 추가 */
+    margin-left: 0px;
 }
 
 .info {
     text-align: center;
 }
 
+/* 새 스타일 */
+body {
+    font-size: 21px; /* 기존 크기에서 5pt 증가 */
+}
 
 .product-image {
     width: 100px;
@@ -46,6 +51,7 @@ th {
 }
 
 button {
+	margin-left: 8px;
     font-size: 26px; /* 기존 크기에서 10pt 증가 */
     padding: 10px 20px; /* 버튼 크기 조절 */
 }
@@ -54,10 +60,7 @@ button {
     text-align: center;
     font-size: 30pt;
     margin-top: 50px;
-    display: none; /* 기본적으로 숨김 */
 }
-
-.main {
-	margin-top: 150px;
-    font-size: 21px; /* 기존 크기에서 5pt 증가 */
+.hidden {
+    display: none; /* 초기 상태에서 숨기기 */
 }

@@ -5,7 +5,7 @@
 <!-- 태그 라이브러리 중 jstl의 core -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- 태그 라이브러리 중 jstl의 fmt -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,9 +52,13 @@ main {
 	padding: 20px;
 	border-radius: 10px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	width: 90%;
+	width: 93%;
 	margin-bottom: 20px; /* 패널 사이 간격 */
 	text-align: center;
+}
+
+h3 {
+	white-space: nowrap; /* 개행이 일어나지 않도록 */
 }
 
 .panel {
@@ -62,7 +66,7 @@ main {
 	padding: 20px;
 	border-radius: 10px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	width: 90%;
+	width: 93%;
 	margin-bottom: 20px; /* 패널 사이 간격 */
 }
 
@@ -70,6 +74,65 @@ main {
 	text-align: left;
 	font-size: 20px;
 	margin-bottom: 10px;
+}
+
+.panel2 {
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+	align-items: center;
+}
+
+.panel3 {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.panel4 {
+	style ="display: flex;
+	justify-content: space-between;
+	align-items: center;
+	"
+}
+
+#searchPanel {
+	display: flex; /* Flexbox 활성화 */
+	justify-content: flex-end; /* 요소들을 오른쪽으로 정렬 */
+	align-items: center; /* 요소들을 수직 중앙 정렬 */
+}
+
+#searchPanel table {
+	border: none; /* 테두리 제거 */
+	margin: 0; /* 기본 마진 제거 */
+	padding: 0;
+}
+
+#searchPanel td {
+	border: none; /* 칸의 테두리 제거 */
+	padding: 2px;
+	margin: 0; /* 칸 간의 여백 제거 */
+}
+
+#searchPanel select, #searchPanel input[type="text"], #searchPanel input[type="submit"]
+	{
+	border-radius: 5px; /* 둥글게 설정 */
+	border: 1px solid #ddd; /* 테두리 색상 설정 */
+	height: 30px; /* 높이 설정 */
+	padding: 0 8px; /* 좌우 패딩 */
+	margin: 0; /* 기본 마진 제거 */
+	box-sizing: border-box; /* 패딩과 테두리를 포함한 총 높이와 너비 계산 */
+}
+
+#searchPanel input[type="submit"] {
+	background-color: #f2f2f2; /* 버튼 배경 색상 */
+	color: #000; /* 버튼 텍스트 색상 */
+	cursor: pointer; /* 커서 모양 변경 */
+}
+
+/* 버튼에 마우스 호버 시 효과 */
+#searchPanel input[type="submit"]:hover {
+	background-color: #e0e0e0; /* 호버 시 버튼 색상 변경 */
 }
 
 table {
@@ -107,13 +170,41 @@ th {
 	</header>
 	<main>
 		<div class="totalMoney">
-			<h2>
+			<h2 id="totalSales">
 				<!-- fmt:formatNumber 이용해서 금액을 나타내는 숫자에 1000단위로 쉼표 추가 -->
-				총 매출액 <fmt:formatNumber value="${totalSales}" type="number" pattern="#,##0"/>원
+				총 매출액
+				<fmt:formatNumber value="${totalSales}" type="number"
+					pattern="#,##0" />
+				원
 			</h2>
 		</div>
 		<div class="panel">
-			<h3>판매 내역</h3>
+			<div class="panel3">
+				<h3>판매 내역</h3>
+				<div class="panel2">
+					<div class="panel4">
+						<div id="searchPanel">
+							<form id="searchForm" method="GET" action="searchSales">
+								<table>
+									<tr>
+										<td><select id="searchField" class="searchOption"
+											name="searchSalesField">
+												<option value="salesDate">결제일시</option>
+												<option value="salesUserId">회원아이디</option>
+												<option value="salesClothName">상품명</option>
+												<option value="salesClothBrand">브랜드</option>
+										</select></td>
+										<td><input type="text" id="searchText"
+											class="searchOption" placeholder="검색어 입력"
+											name="searchSalesText" maxlength="100"></td>
+										<td><input type="submit" value="검색"></td>
+									</tr>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 			<table>
 				<thead>
 					<tr>
@@ -131,7 +222,8 @@ th {
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${empty salesHistoryList}"> <!-- 리스트가 비어있을 경우 : 판매 내역이 없을 경우 -->
+					<c:if test="${empty salesHistoryList}">
+						<!-- 리스트가 비어있을 경우 : 판매 내역이 없을 경우 -->
 						<tr>
 							<td colspan="10">판매 내역이 없습니다.</td>
 						</tr>
@@ -143,16 +235,18 @@ th {
 							<td>${sales.cloth_brand}</td>
 							<td>${sales.payment_count}</td>
 							<!-- fmt:formatNumber 이용해서 금액을 나타내는 숫자에 1000단위로 쉼표 추가 -->
-							<td><fmt:formatNumber value="${sales.cloth_price * sales.payment_count}" type="number" pattern="#,##0"/>원</td>
+							<td><fmt:formatNumber
+									value="${sales.cloth_price * sales.payment_count}"
+									type="number" pattern="#,##0" />원</td>
 							<td>${sales.user_id}</td>
 							<td>${sales.user_name}</td>
 							<td>${sales.user_phone}</td>
 							<td>${sales.user_grade}</td>
 							<td>${sales.user_address}</td>
 							<td>
-                                <!-- fmt:formatDate 이용해서 payment_date를 날짜와 시간 형식으로 출력 -->
-                                <fmt:formatDate value="${sales.payment_date}" pattern="yyyy-MM-dd HH:mm:ss" />
-                            </td>
+								<!-- fmt:formatDate 이용해서 payment_date를 날짜와 시간 형식으로 출력 --> <fmt:formatDate
+									value="${sales.payment_date}" pattern="yyyy-MM-dd HH:mm:ss" />
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
