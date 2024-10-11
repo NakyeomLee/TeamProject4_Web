@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -13,6 +15,7 @@ import image.Image;
 import material.Cloth;
 import payment.PayCloth;
 import shoppingCart.ShoppingCartItem;
+import user.User;
 
 public interface Mapper {
 
@@ -111,6 +114,23 @@ public interface Mapper {
 			+ "LIMIT 1;")
 	int ClothLastNum();
 
+	@Select("SELECT user_id, user_phone, user_address FROM lp.user where user_Id = #{userId};")
+	@Results({
+		 @Result(property = "id", column = "user_id"),
+		 @Result(property = "phone", column = "user_phone"),
+		 @Result(property = "address", column = "user_address"),
+	})
+	User getUser(@Param("userId") String userId);
+
+	@Select("SELECT user_useMoney FROM lp.user where user_Id = #{userId};")
+	int getUseMoney(@Param("userId") String userId);
+
+	@Update("UPDATE user SET user_useMoney = #{usedMoney} WHERE user_Id = #{userId};")
+	int updateUseMoney(@Param("userId") String userId, @Param("usedMoney") int usedMoney);
 	
-	
+	@Select("SELECT cloth_sold FROM lp.cloth where cloth_num = #{clothNum};")
+	int getClothSold(@Param("clothNum") int clothNum);
+
+	@Update("UPDATE cloth SET cloth_sold = #{count} WHERE cloth_num = #{clothNum};")
+	void updateClothSold(@Param("clothNum") int clothNum, @Param("count") int count);
 }

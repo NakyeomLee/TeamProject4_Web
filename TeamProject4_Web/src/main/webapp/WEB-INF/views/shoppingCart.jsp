@@ -8,6 +8,9 @@
 <title>쇼핑 카트</title>
 <link rel="stylesheet" type="text/css"
 	href="./static/css/shoppingCart.css">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"> </script>
 <script>
 	const userId = '<%=(String) session.getAttribute("userId")%>';
 </script>
@@ -63,9 +66,10 @@
 					</tr>
 					<tr>
 						<td colspan="4" class="total">총 합계</td>
-						<td class="total final-total-price" id="finalTotalPrice">
-						<c:set var="finalTotalPrice" value="${totalPrice + 3500}" scope="session" /> ${totalPrice}원 + 3500원 = ${finalTotalPrice}원
-						<input type="hidden" id="ftp" value="${finalTotalPrice}">
+						<td class="total final-total-price" id="finalTotalPrice"><c:set
+								var="finalTotalPrice" value="${totalPrice + 3500}"
+								scope="session" /> ${totalPrice}원 + 3500원 = ${finalTotalPrice}원
+							<input type="hidden" id="ftp" value="${finalTotalPrice}">
 						</td>
 					</tr>
 				</tfoot>
@@ -83,13 +87,13 @@
 		<button data-action="order">주문하기</button>
 	</div>
 	<dialog class="payment-dialog">
-		<h2>구매 창</h2>
-		<p>
-			총 결제 금액:
-			<%=session.getAttribute("finalTotalPrice")%>원
-		</p>
-		<button class="confirm-payment-button">결제 완료</button>
-		<button class="cancel-payment-button">취소</button>
+	<h2>구매 창</h2>
+	<p>
+		총 결제 금액:
+		<%=session.getAttribute("finalTotalPrice")%>원
+	</p>
+	<button onclick="requestPay()">결제하기</button>
+	<button class="cancel-payment-button">취소</button>
 	</dialog>
 </body>
 <script

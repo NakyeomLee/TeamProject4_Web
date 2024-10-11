@@ -11,6 +11,7 @@ import material.AppContextListener;
 import material.Cloth;
 import payment.PayCloth;
 import shoppingCart.ShoppingCartItem;
+import user.User;
 
 public class ServiceImpl implements Service {
 
@@ -226,5 +227,53 @@ public class ServiceImpl implements Service {
 			return result;
 		}
 		
+	}
+
+	@Override
+	public User getUserInfo(String userId) {
+		try (SqlSession sqlSession = AppContextListener.getSqlSession()) {
+			Mapper mapper = sqlSession.getMapper(Mapper.class);
+			
+			User user = mapper.getUser(userId);
+			return user;
+		}
+	}
+	// 사용금액 확인
+	@Override
+	public int userUseMoney(String userId) {
+		try (SqlSession sqlSession = AppContextListener.getSqlSession()) {
+			Mapper mapper = sqlSession.getMapper(Mapper.class);
+			
+			int useMoney = mapper.getUseMoney(userId);
+			return useMoney;
+		}
+	}
+	// 사용금액 업데이트
+	@Override
+	public void updateUseMoney(String userId, int useMoney) {
+		try (SqlSession sqlSession = AppContextListener.getSqlSession()) {
+			Mapper mapper = sqlSession.getMapper(Mapper.class);
+			mapper.updateUseMoney(userId, useMoney);
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public int getClothSold(int clothNum) {
+		try (SqlSession sqlSession = AppContextListener.getSqlSession()) {
+			Mapper mapper = sqlSession.getMapper(Mapper.class);
+			
+			int clothSold = mapper.getClothSold(clothNum);
+			return clothSold;
+		}
+	}
+
+	@Override
+	public void updateClothSold(int clothNum, int count) {
+		try (SqlSession sqlSession = AppContextListener.getSqlSession()) {
+			Mapper mapper = sqlSession.getMapper(Mapper.class);
+			mapper.updateClothSold(clothNum,count);
+			sqlSession.commit();
+		}
 	}
 }
