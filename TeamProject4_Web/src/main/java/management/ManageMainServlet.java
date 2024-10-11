@@ -18,7 +18,6 @@ import material.AppContextListener;
 @WebServlet("/manage")
 public class ManageMainServlet extends HttpServlet {
 	AppContextListener app;
-	ManageServiceImpl manageServiceImpl = ManageServiceImpl.getInstance();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

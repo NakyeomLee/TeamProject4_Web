@@ -12,13 +12,16 @@ import material.AppContextListener;
 
 // 작성자 : 이나겸
 
-@WebServlet("/productStatus")
-public class ProductStatusServlet extends HttpServlet {
+@WebServlet("/searchPurchase")
+public class SearchPurchaseServlet extends HttpServlet {
 	AppContextListener app;
-	ManageServiceImpl manageServiceImpl = ManageServiceImpl.getInstance();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/productStatus.jsp").forward(req, resp);
+		app = new AppContextListener();
+		
+		// 값이 한글일 경우를 대비해 encoding
+		req.setCharacterEncoding("utf-8");
+		
 	}
 }
