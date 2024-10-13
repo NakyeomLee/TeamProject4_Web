@@ -27,15 +27,29 @@ header {
 	color: #fff;
 	padding: 10px 0;
 	width: 100%;
-	height: 125px;
+	height: 155px;
 	position: fixed; /* header를 고정 */
 	top: 0;
 	left: 0;
 	z-index: 1000; /* 다른 내용 위에 고정되도록 z-index 추가 */
 }
 
-nav .logo {
-	text-align: center;
+nav .logoAndText {
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center; /* 가운데 정렬 */
+}
+
+.logoAndTitle {
+    display: flex;
+    align-items: center; /* 이미지와 h1을 수직 중앙 정렬 */
+    justify-content: center; /* 로고와 h1을 수평 중앙 정렬 */
+}
+
+.logo-img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
 }
 
 main {
@@ -43,7 +57,7 @@ main {
 	flex-direction: column;
 	align-items: center; /* 수평 중앙 정렬 */
 	width: 100%;
-	padding-top: 170px; /* header 높이와 여유 공간을 줌 */
+	padding-top: 200px; /* header 높이와 여유 공간을 줌 */
 	overflow-y: auto; /* 내용이 많아지면 스크롤이 생기도록 설정 */
 }
 
@@ -89,17 +103,11 @@ h3 {
 	width: 100%;
 }
 
-.panel4 {
-	style ="display: flex;
-	justify-content: space-between;
-	align-items: center;
-	"
-}
-
 #searchPanel {
 	display: flex; /* Flexbox 활성화 */
 	justify-content: flex-end; /* 요소들을 오른쪽으로 정렬 */
 	align-items: center; /* 요소들을 수직 중앙 정렬 */
+	margin-left: auto; /* 검색 창이 오른쪽으로 이동하도록 설정 */
 }
 
 #searchPanel table {
@@ -162,9 +170,18 @@ th {
 <body>
 	<header>
 		<nav>
-			<div class="logo">
-				<h1>Web Project 홈페이지</h1>
-				<h2>총 매출</h2>
+			<div class="logoAndText">
+				<div class="logoAndTitle">
+					<div class="logo">
+						<img src="/static/image/logo/logo.png" alt="로고 이미지" class="logo-img">
+					</div>
+					<h1>
+						<a href="/main"
+							style="color: #fff; text-decoration: none; font-size: 1.5em;">
+							NO MORE SHINSA</a>
+					</h1>
+				</div>
+				<h2>판매 관리</h2>
 			</div>
 		</nav>
 	</header>
@@ -179,10 +196,13 @@ th {
 			</h2>
 		</div>
 		<div class="panel">
-			<div class="panel3">
 				<h3>판매 내역</h3>
 				<div class="panel2">
-					<div class="panel4">
+					<div class="panel3">
+						<div id="salesCount">
+							총 판매 건 수 :
+							<%=request.getAttribute("salesHistoryCount")%>건
+						</div>
 						<div id="searchPanel">
 							<form id="searchForm" method="GET" action="searchSales">
 								<table>
@@ -204,7 +224,6 @@ th {
 						</div>
 					</div>
 				</div>
-			</div>
 			<table>
 				<thead>
 					<tr>
@@ -212,12 +231,12 @@ th {
 						<th>상품명</th>
 						<th>상품브랜드</th>
 						<th>판매수량</th>
-						<th>결제금액</th>
 						<th>아이디</th>
 						<th>이름</th>
 						<th>전화번호</th>
 						<th>회원등급</th>
-						<th>배송지(일단은 회원주소)</th>
+						<th>배송지</th>
+						<th>결제금액</th>
 						<th>결제일시</th>
 					</tr>
 				</thead>
@@ -225,7 +244,7 @@ th {
 					<c:if test="${empty salesHistoryList}">
 						<!-- 리스트가 비어있을 경우 : 판매 내역이 없을 경우 -->
 						<tr>
-							<td colspan="10">판매 내역이 없습니다.</td>
+							<td colspan="11">판매 내역이 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:forEach var="sales" items="${salesHistoryList}">
@@ -234,15 +253,16 @@ th {
 							<td>${sales.cloth_name}</td>
 							<td>${sales.cloth_brand}</td>
 							<td>${sales.payment_count}</td>
-							<!-- fmt:formatNumber 이용해서 금액을 나타내는 숫자에 1000단위로 쉼표 추가 -->
-							<td><fmt:formatNumber
-									value="${sales.cloth_price * sales.payment_count}"
-									type="number" pattern="#,##0" />원</td>
 							<td>${sales.user_id}</td>
 							<td>${sales.user_name}</td>
 							<td>${sales.user_phone}</td>
 							<td>${sales.user_grade}</td>
 							<td>${sales.user_address}</td>
+							<td>
+								<!-- fmt:formatNumber 이용해서 금액을 나타내는 숫자에 1000단위로 쉼표 추가 --> <fmt:formatNumber
+									value="${sales.cloth_price * sales.payment_count}"
+									type="number" pattern="#,##0" />원
+							</td>
 							<td>
 								<!-- fmt:formatDate 이용해서 payment_date를 날짜와 시간 형식으로 출력 --> <fmt:formatDate
 									value="${sales.payment_date}" pattern="yyyy-MM-dd HH:mm:ss" />

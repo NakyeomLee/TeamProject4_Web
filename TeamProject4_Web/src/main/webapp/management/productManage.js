@@ -1,9 +1,8 @@
-// 작성자 : 이나겸
+// 작성자 : 이진석
 
 // 페이지가 로드될 때 서버로부터 데이터를 가져오기 위한 함수 호출
 
 let clothdialog = document.querySelector(".clothInfoDialog");
-
 let sizeDialog = document.querySelector(".sizeListDialog");
 
 function sizedialogOpen() {
@@ -23,12 +22,11 @@ let usage1 = clothdialog.querySelector("#comboUsage1"); // 옷 사용처 1
 let usage2 = clothdialog.querySelector("#comboUsage2"); // 옷 사용처 2
 let usage3 = clothdialog.querySelector("#comboUsage3"); // 옷 사용처 3
 
-let maxSize = clothdialog.querySelector("#clothmaxSize");// 상품 최대 사이즈
-let minSize = clothdialog.querySelector("#clothminSize");// 상품 최소 사이즈
-let clothEx = clothdialog.querySelector("#clothExplanation");// 상품 설명
-let gender = clothdialog.querySelector("#clothGender");// 상품 권장 성별
+let maxSizeCombo = clothdialog.querySelector("#comboMaxSize"); // 상품 최대 사이즈 콤보박스
+let minSizeCombo = clothdialog.querySelector("#comboMinSize"); // 상품 최소 사이즈 콤보박스
+let clothEx = clothdialog.querySelector("#clothExplanation"); // 상품 설명
+let genderCombo = clothdialog.querySelector("#comboGender"); // 상품 권장 성별 콤보박스// 최초값 보관 보관하면서 open
 
-// 최초값 보관 보관하면서 open
 function dialogOpen() {
 	initialColorValue = color.value;
 	initialSValue = s.value;
@@ -36,6 +34,9 @@ function dialogOpen() {
 	initialUsage1Value = usage1.value;
 	initialUsage2Value = usage2.value;
 	initialUsage3Value = usage3.value;
+	initialMaxSizeValue = maxSizeCombo.value;
+	initialMinSizeValue = minSizeCombo.value;
+	initialGenderValue = genderCombo.value;
 	clothdialog.showModal();
 }
 
@@ -60,6 +61,9 @@ function dialogClose() {
 	usage1.value = initialUsage1Value;
 	usage2.value = initialUsage2Value;
 	usage3.value = initialUsage3Value;
+	maxSizeCombo.value = initialMaxSizeValue;
+	minSizeCombo.value = initialMinSizeValue;
+	genderCombo.value = initialGenderValue;
 
 	inputBye();
 	clothdialog.close();
@@ -68,6 +72,7 @@ function dialogClose() {
 // 상품 수정 액션
 let dialogModify = document.querySelector(".modifyDialog");
 let target;
+
 // 다이얼 오픈 액션
 function mDialogOpen(e) {
 	target = e.target;
@@ -79,6 +84,7 @@ function mDialogOpen(e) {
 
 	dialogModify.showModal();
 }
+
 // 다이얼 종료 액션
 function mDialogClose() {
 	dialogModify.querySelector(".colName").innerText = "상품명";
@@ -86,6 +92,7 @@ function mDialogClose() {
 
 	dialogModify.close();
 }
+
 // 다이얼 안에 있는 수정버튼 액션
 function modifyClothinput(e) {
 	let dialogText = dialogModify.querySelector(".innerText").value;
@@ -98,20 +105,19 @@ function inputBye() {
 	Name.value = "";
 	Brand.value = "";
 	Price.value = "";
-	maxSize.value = "";
-	minSize.value = "";
 	clothEx.value = "";
-	gender.value = "";
 
-	mBlock.style.display = "block";
+	// size 관련 블록 초기화
 	mBlock.style.display = "block";
 	lBlock.style.display = "block";
 	xlBlock.style.display = "block";
 	xxlBlock.style.display = "block";
 }
+
 // 추가할 때 값을 재대로 입력했는지 검증
 function clothEnroll() {
 	let count = 0;
+	
 	if (Name.value <= 0) {
 		alert("상품명을 작성해주세요");
 		Name.value = "";
@@ -161,20 +167,28 @@ function clothEnroll() {
 		alert("옷의 사용처는 같은 선택할 수 없습니다.");
 		return;
 	}
-	if (maxSize.value <= 0) {
+
+	if (maxSizeCombo.value <= 0) {
 		alert("상품의 최대사이즈를 작성해주세요");
-		maxSize.value = "";
 		return;
 	} else {
 		count++;
 	}
-	if (minSize.value <= 0) {
+	if (minSizeCombo.value <= 0) {
 		alert("상품의 최소사이즈를 작성해주세요");
-		minSize.value = "";
 		return;
 	} else {
 		count++;
 	}
+	
+	if (maxSizeCombo.value !== minSizeCombo.value) {
+		alert("상품의 최대,최소 사이즈는 같으면 안됩니다.");
+		return;
+	} else if (maxSizeCombo.value < minSizeCombo.value) {
+		alert("상품의 최대 사이즈는 최소사이즈보다 작을수 없습니다.");
+		return;
+	}
+	
 	if (clothEx.value <= 0) {
 		alert("상품설명을 작성해주세요");
 		clothEx.value = "";
@@ -182,9 +196,8 @@ function clothEnroll() {
 	} else {
 		count++;
 	}
-	if (gender.value <= 0) {
+	if (genderCombo.value <= 0) {
 		alert("권장 성별을 작성해주세요");
-		gender.value = "";
 		return;
 	} else {
 		count++;
@@ -207,8 +220,8 @@ let xlBlock = sizeDialog.querySelector("#divXL");
 let xxlBlock = sizeDialog.querySelector("#divXXL");
 // 사이즈 선택에 따라 보여주는 값
 function clothRegistration() {
-	let min = parseInt(minSize.value, 10);
-	let max = parseInt(maxSize.value, 10);
+	let min = parseInt(minSizeCombo.value, 10);
+	let max = parseInt(maxSizeCombo.value, 10);
 	if (min === 5) {
 		sBlock.style.display = "none";
 		mBlock.style.display = "none";
@@ -224,6 +237,7 @@ function clothRegistration() {
 	} else if (min === 2) {
 		sBlock.style.display = "none";
 	}
+	
 	if (max === 4) {
 		xxlBlock.style.display = "none";
 	} else if (max === 3) {
@@ -250,9 +264,9 @@ function clothRegister() {
 			"cloth_name": Name.value,
 			"cloth_brand": Brand.value,
 			"cloth_price": Price.value,
-			"cloth_min_size": minSize.value,
-			"cloth_max_size": maxSize.value,
-			"cloth_gender": gender.value,
+			"cloth_min_size": minSizeCombo.value,
+			"cloth_max_size": maxSizeCombo.value,
+			"cloth_gender": genderCombo.value,
 			"cloth_explanation": clothEx.value,
 
 			"cloth_size_s": Ssize.value,
@@ -280,7 +294,7 @@ function clothRegister() {
 			alert("성공적으로 등록되었습니다.");
 			sizedialogClose();
 			dialogClose();
-			window.location("http://localhost:8080/uploadImage");
+			window.location.href = "http://localhost:8080/uploadImage";
 		} else if (resp.status === 420) {
 			alert("실패하였습니다.");
 		} else {

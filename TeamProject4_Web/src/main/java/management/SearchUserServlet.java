@@ -47,6 +47,12 @@ public class SearchUserServlet extends HttpServlet {
 				// 회원 아이디 검색된 별 회원 수 (무조건 1이 나와야함)
 				searchUserCount = managerMapper.getCountById(searchText);
 
+			} else if ("userName".equals(searchField)) {
+				// 회원명 별 검색된 회원 리스트
+				searchUserList = managerMapper.getSelectByName(searchText);
+				// 회원명 별 검색된 회원 수
+				searchUserCount = managerMapper.getCountByName(searchText);
+				
 			} else if ("userGrade".equals(searchField)) { // 회원 등급으로 회원 검색
 				// 회원 등급 별 검색된 회원 리스트
 				searchUserList = managerMapper.getSelectByGrade(searchText);
@@ -67,6 +73,5 @@ public class SearchUserServlet extends HttpServlet {
 	    req.getRequestDispatcher("/WEB-INF/views/userManage.jsp").forward(req, resp);
 	    
 		System.out.println(searchUserList);
-		
 	}
 }

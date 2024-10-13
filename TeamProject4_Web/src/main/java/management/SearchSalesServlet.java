@@ -30,6 +30,7 @@ public class SearchSalesServlet extends HttpServlet {
 
 		List<JoinUser> searchSalesList = null; // 판매 내역 검색 결과 리스트
 		Integer totalSalesByOption = null; // 조건 별 매출액 저장
+		int countByOption = 0; // 조건 별 판매 건 수 저장
 
 		try (SqlSession sqlSession = app.getSqlSession()) {
 			ManageMapper manageMapper = sqlSession.getMapper(ManageMapper.class);
@@ -39,29 +40,38 @@ public class SearchSalesServlet extends HttpServlet {
 				searchSalesList = manageMapper.getSelectSalesByDate(searchText);
 				// 결제 일시 별 매출액
 				totalSalesByOption = manageMapper.getTotalSalesByDate(searchText);
+				// 결제 일시 별 판매 건수
+				countByOption = manageMapper.getCountSalesByDate(searchText);
 
 			} else if ("salesUserId".equals(searchField)) {
 				// 회원 아이디 별 검색된 판매 내역 리스트
 				searchSalesList = manageMapper.getSelectSalesById(searchText);
 				// 회원 아이디 별 매출액
 				totalSalesByOption = manageMapper.getTotalSalesById(searchText);
+				// 회원 아이디 별 판매 건 수
+				countByOption = manageMapper.getCountSalesById(searchText);
 
 			} else if ("salesClothName".equals(searchField)) {
 				// 상품명 별 검색된 판매 내역 리스트
 				searchSalesList = manageMapper.getSelectSalesByClothName(searchText);
 				// 상품명 별 매출액
 				totalSalesByOption = manageMapper.getTotalSalesByClothName(searchText);
+				// 상품명 별 판매 건 수
+				countByOption = manageMapper.getCountSalesByClothName(searchText);
 
 			} else if ("salesClothBrand".equals(searchField)) {
 				// 상품 브랜드 별 검색된 판매 내역 리스트
 				searchSalesList = manageMapper.getSelectSalesByBrand(searchText);
 				// 상품 브랜드 별 매출액
 				totalSalesByOption = manageMapper.getTotalSalesByBrand(searchText);
+				// 상품 브랜드 별 판매 건 수
+				countByOption = manageMapper.getCountSalesByBrand(searchText);
 			}
 		}
 
 		req.setAttribute("salesHistoryList", searchSalesList);
 		req.setAttribute("totalSales", totalSalesByOption);
+		req.setAttribute("salesHistoryCount", countByOption);
 
 		req.getRequestDispatcher("/WEB-INF/views/totalSales.jsp").forward(req, resp);
 

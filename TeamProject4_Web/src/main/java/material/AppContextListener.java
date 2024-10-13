@@ -20,68 +20,61 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import clothdetail.ClothReviewMapper;
 import lombok.extern.slf4j.Slf4j;
 import main.Mapper;
-import main.ServiceImpl;
 import management.ManageMapper;
 import search.SoftSearchMapper;
 import user.UserMapper;
 
 @WebListener
+@Slf4j
 public class AppContextListener implements ServletContextListener {
 	private static DataSource dataSource;
 	private static SqlSessionFactory sessionFactory;
-	
-	
+
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		initDataSource();
 		initSqlSessionFactory();
 	}
-	
+
 	private void initSqlSessionFactory() {
 		TransactionFactory transactionFactory = new JdbcTransactionFactory();
 		Environment environment = new Environment("dev", transactionFactory, dataSource);
-		
+
 		Configuration configuration = new Configuration(environment);
 		configuration.addMapper(Mapper.class);
-		configuration.addMapper(ManageMapper.class);
 		configuration.addMapper(UserMapper.class);
 		configuration.addMapper(SoftSearchMapper.class);
 		configuration.addMapper(ClothReviewMapper.class);
+		configuration.addMapper(ManageMapper.class);
 		sessionFactory = new SqlSessionFactoryBuilder().build(configuration);
 	}
 
-	// 학원에서 작업할때 DB 연결
-	private void initDataSource() {
-		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://192.168.0.4:3306/lp");
-		dataSource.setUsername("bbs");
-		dataSource.setPassword("Asdf1234");
-		
-		AppContextListener.dataSource = dataSource;
-	}
-	
-	// 집에서 작업할때 DB 연결 (이나겸)
 //	private void initDataSource() {
 //		BasicDataSource dataSource = new BasicDataSource();
 //		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-//		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/lp");
-//		dataSource.setUsername("root");
-//		dataSource.setPassword("root");
-//		
+//		dataSource.setUrl("jdbc:mysql://192.168.0.4:3306/lp");
+//		dataSource.setUsername("bbs");
+//		dataSource.setPassword("Asdf1234");
+//
 //		AppContextListener.dataSource = dataSource;
 //	}
+
+	// 이나겸 DB (집에서 작업할때)
+	private void initDataSource() {
+		BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/lp");
+		dataSource.setUsername("root");
+		dataSource.setPassword("root");
+
+		AppContextListener.dataSource = dataSource;
+	}
 
 	public static Connection getConnection() throws SQLException {
 		return dataSource.getConnection();
 	}
-	
+
 	public static SqlSession getSqlSession() {
 		return sessionFactory.openSession();
 	}
 }
-
-
-
-
-
