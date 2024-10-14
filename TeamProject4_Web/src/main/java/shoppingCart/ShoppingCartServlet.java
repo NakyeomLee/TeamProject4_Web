@@ -19,7 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import main.ServiceImpl;
 import material.AppContextListener;
 import material.Cloth;
-//TODO : 현재 userId 직접 호출중임 >> 세션으로 받아와야함, jsp 버튼들 구현해야함
 import user.User;
 
 @WebServlet("/shoppingCart")
@@ -53,8 +52,13 @@ public class ShoppingCartServlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 		String userId = (String) session.getAttribute("userId");
-		Long longValue  = (Long) session.getAttribute("finalTotalPrice");
-		Integer finalTotalPrice = longValue.intValue();
+		Integer finalTotalPrice = null;
+		try {
+			Long longValue  = (Long) session.getAttribute("finalTotalPrice");
+			finalTotalPrice = longValue.intValue();
+		} catch (Exception e) {
+			finalTotalPrice = (Integer) session.getAttribute("finalTotalPrice");
+		}
 		
 		List<ShoppingCartItem> orderList = null;
 		// JSON 데이터를 읽어서 String으로 변환
@@ -84,7 +88,14 @@ public class ShoppingCartServlet extends HttpServlet {
 			// 주문 처리 로직 추가
 			session.setAttribute("orderList", orderList); // 장바구니
 			for (ShoppingCartItem order : orderList) {
-				result += serviceImpl.insertPayment(order);
+				String selectedSize = (String) session.getAttribute("selectedSize");
+				
+				if (selectedSize == null) {
+					result += serviceImpl.insertPayment(order, 0);
+				} else {
+					result += serviceImpl.insertPayment(order, Integer.parseInt(selectedSize));
+				}
+				
 			}
 			if (result != 0) {
 				result = 0;

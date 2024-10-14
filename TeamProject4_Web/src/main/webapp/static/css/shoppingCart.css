@@ -1,5 +1,5 @@
 /* 기존 스타일 */
-body {
+.all {
     font-size: 16px; /* 기존 폰트 크기 */
     padding-top: 120px; /* header의 높이만큼 padding 추가 */
     margin-left: 0px;

@@ -9,7 +9,9 @@ import image.ClothImage;
 import image.Image;
 import material.AppContextListener;
 import material.Cloth;
+import payment.ClothSize;
 import payment.PayCloth;
+import payment.PaymentInfo;
 import shoppingCart.ShoppingCartItem;
 import user.User;
 
@@ -207,10 +209,10 @@ public class ServiceImpl implements Service {
 	
 
 	@Override
-	public int insertPayment(ShoppingCartItem order) {
+	public int insertPayment(ShoppingCartItem order, int cloth_size) {
 		try (SqlSession sqlSession = AppContextListener.getSqlSession()) {
 			Mapper mapper = sqlSession.getMapper(Mapper.class);
-			int result = mapper.insertPayment(order);
+			int result = mapper.insertPayment(order.getUser_Id(), order.getCloth_num(), order.getShoppingcart_count(), cloth_size);
 
 			if (result == 1) {
 				sqlSession.commit();
@@ -227,6 +229,21 @@ public class ServiceImpl implements Service {
 			return result;
 		}
 		
+	}
+
+	public boolean cancelOrder(int cloth_num, String userId) {
+		try (SqlSession sqlSession = AppContextListener.getSqlSession()) {
+			Mapper mapper = sqlSession.getMapper(Mapper.class);
+			PaymentInfo paymentInfo = mapper.findUserPayPrice(userId, cloth_num);
+			mapper.cancelOrder(userId, cloth_num);
+			mapper.changeUserUseMoneyToDown(userId, paymentInfo.getTotalPayPrice());
+			mapper.changeClothSoldToDown(paymentInfo.getPaymentCount(), cloth_num);
+			
+			sqlSession.commit();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override
@@ -276,4 +293,13 @@ public class ServiceImpl implements Service {
 			sqlSession.commit();
 		}
 	}
+
+	public ClothSize findClothSize(int chooseClothNum) {
+		try (SqlSession sqlSession = AppContextListener.getSqlSession()) {
+			Mapper mapper = sqlSession.getMapper(Mapper.class);
+			ClothSize clothSize = mapper.findClothSize(chooseClothNum);
+			return clothSize;
+		}
+	}
+	
 }

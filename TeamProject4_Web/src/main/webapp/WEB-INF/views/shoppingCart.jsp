@@ -14,9 +14,96 @@
 <script>
 	const userId = '<%=(String) session.getAttribute("userId")%>';
 </script>
+<style type="text/css">
+.image {
+	width: 50px;
+	height: 70px;
+}
+
+.logoAndTitle {
+    display: flex;
+    align-items: center; /* 이미지와 h1을 수직 중앙 정렬 */
+    justify-content: center; /* 로고와 h1을 수평 중앙 정렬 */
+    font-size: 0.75em;
+    margin-top: -5px;
+    margin-left: -20px;
+}
+
+.logo-img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.link {
+	font-size: 30px;
+	display: flex;
+	justify-content: center; /* 중앙 배치 */
+	gap: 70px; /* 요소들 사이에 20px 간격 */
+}
+
+.link a {
+	color: white; /* 링크 색깔을 하얀색으로 */
+	text-decoration: none; /* 밑줄 제거 */
+	margin-top: -5px;
+}
+
+.logo a {
+	color: white; /* 링크 색깔을 하얀색으로 */
+	text-decoration: none; /* 밑줄 제거 */
+}
+
+header {
+	background-color: #333;
+	color: #fff;
+	padding: 10px 0;
+	position: fixed;
+	width: 100%;
+	height: 125px;
+	top: 0;
+	z-index: 1000;
+	transition: top 0.5s;
+}
+
+.link p {
+	margin-top: 0px;
+}
+</style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/mainBar.jsp"></jsp:include>
+	<header>
+		<nav>
+			<div class="logoAndTitle">
+				<div class="logo">
+					<a href="/main"> 
+						<img src="/static/image/logo/logo.png" alt="로고 이미지" class="logo-img">
+					</a>
+				</div>
+				<h1><a href="/main" style="color: #fff; text-decoration: none; font-size: 1.5em;">NO MORE SHINSA</a></h1>
+			</div>
+			<div class="link">
+				<c:if test="${not empty sessionScope.userId}">
+					<p>환영합니다, ${ userId }님!</p>
+					<c:if test="${sessionScope.userId == 'admin'}">
+						<a href="./manage">관리자 페이지</a>
+					</c:if>
+					<c:if test="${sessionScope.userId != 'admin'}">
+						<a href="./modify?userId=${ userId }">내 정보 보기</a>
+						<a href="./shoppingCart?userId=${ userId }">장바구니</a>
+						<a href="./userPayment">결제 완료 목록</a>
+					</c:if>
+					<a href="/logout">로그 아웃</a>
+				</c:if>
+				<c:if test="${empty sessionScope.userId}">
+					<a href="./user">로그인</a>
+					<a href="./signup">회원가입</a>
+				</c:if>
+				<a href="./search">☆내게 맞는 옷 찾기☆</a> <a href="/softSearch">검색</a>
+			</div>
+		</nav>
+	</header>
+	
+	<div class="all">
 	<div class="info">
 		<h1>장바구니</h1>
 	</div>
@@ -37,9 +124,8 @@
 						<tr>
 							<td><input type="checkbox" name="selectedItems"
 								value="${item.cloth_num}"></td>
-							<td class="product-info"><img
-								src="data:image/jpeg;base64,${item.list_Image}"
-								alt="${item.cloth_name}" class="product-image">
+							<td class="product-info">
+							<img class="image" src="/static/image/cloth/cloth${item.cloth_num}/옷${item.cloth_num}.png" alt="${item.cloth_name}" class="product-image">
 								${item.cloth_name}</td>
 							<td>${item.shoppingcart_count}</td>
 							<td>${item.cloth_price}원</td>
@@ -95,6 +181,8 @@
 	<button onclick="requestPay()">결제하기</button>
 	<button class="cancel-payment-button">취소</button>
 	</dialog>
+	</div>
+	
 </body>
 <script
 	src="${pageContext.request.contextPath}/static/js/shoppingCart.js"></script>

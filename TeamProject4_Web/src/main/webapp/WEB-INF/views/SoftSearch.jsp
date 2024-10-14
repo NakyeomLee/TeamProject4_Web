@@ -4,8 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>검색 창</title>
 <style>
 body {
 	justify-content: center;
@@ -65,10 +63,16 @@ header {
 	height: 120px;
 }
 
-.logo {
-	text-align: center;
-	color: white;
-	font-family: Arial, sans-serif;
+.logoAndTitle {
+    display: flex;
+    align-items: center; /* 이미지와 h1을 수직 중앙 정렬 */
+    justify-content: center; /* 로고와 h1을 수평 중앙 정렬 */
+}
+
+.logo-img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
 }
 
 .info {
@@ -87,11 +91,12 @@ header {
 	list-style: none;
 	padding: 0;
 	height: 25px;
+	gap: 50px;
 }
 
 .link li {
-	margin-left: 150px;
-	margin-right: 150px;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 
 .link a {
@@ -106,12 +111,18 @@ header {
 }
 
 .hyperLink {
-	color: white;
-	text-decoration-line: none;
+	color: #fff; 
+	text-decoration: none; 
+	font-size: 1.5em;
 }
 
 .link p {
+	font-size: 30px;
 	margin-top: 0px;
+}
+
+.mainBar {
+	margin-top: -54px;
 	font-size: 30px;
 }
 </style>
@@ -121,20 +132,29 @@ header {
 
 	<header>
 		<nav>
-			<div class="logo">
-				<a href="./main" class="hyperLink"><h1>Web Project 홈페이지</h1></a>
+			<div class="logoAndTitle">
+				<div class="logo">
+					<img src="/static/image/logo/logo.png" alt="로고 이미지"
+						class="logo-img">
+				</div>
+				<a href="./main" class="hyperLink"><h1>NO MORE SHINSA</h1></a>
 			</div>
+			<div class="mainBar">
 			<ul class="link">
 				<c:if test="${not empty sessionScope.userId}">
-					<p>환영합니다, ${ userId }님!</p>
+					<li><p>환영합니다, ${ userId }님!</p></li>
+					<li><a href="/logout">로그 아웃</a></li>
+					<li><a href="./shoppingCart?userId=${ userId }">장바구니</a></li>
+					<li><a href="./userPayment">결제 완료 목록</a></li>
 				</c:if>
 				<c:if test="${empty sessionScope.userId}">
 					<li><a href="./user">로그인</a></li>
 					<li><a href="./signup">회원가입</a></li>
 				</c:if>
 				<li><a href="./search">☆내게 맞는 옷 찾기☆</a></li>
-				<li><a href="#">신상품</a></li>
 			</ul>
+			</div>
+			
 		</nav>
 	</header>
 
@@ -201,4 +221,5 @@ window.onscroll = function() {
 };
 </script>
 </html>
+
 
