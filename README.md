@@ -1,43 +1,51 @@
+<p align="center"><img src="https://github.com/user-attachments/assets/d90030ef-428d-43f2-ad57-5be814b17067" width="200"></p>
 <h1 align="center">
-  NO MORE SHINSA
+  WEB프로젝트 (NO MORE SHINSA)
 </h1>
 <p align="center">의류 쇼핑몰 사이트</p>
 <p align="center">
-  기본적인 의류 검색 기능과 <br>
-  계절, 색상 등 다양한 옵션을 선택하는 설문 기능을 통해 맞춤 의류 추천 기능을 제공하여 <br>
-  사용자가 구매 고민을 덜고 최적의 의류를 찾아서 구매할 수 있는 사이트
+  기존 쇼핑몰의 필터 기능을 더 쉽고 직관적이게 이용할 수 있도록 개선한 web 홈페이지 <br>
+  간단한 옵션 선택 구성의 설문 기능을 통해 맞춤 의류 추천 기능을 제공하여 <br>
+  사용자가 구매 고민을 덜고 최적의 의류를 찾아서 구매할 수 있음
 </p>
 
 ---
 
-## 메인 페이지
+## key Features
+
+<br>
+타 홈페이지의 필터 기능은 전문적인 지식을 요구하는 경우가 많아서 누구나 쉽게 쓸 수 있도록 변경한 설문조사식 필터 기능으로 개선
+<br><br><br>
+
+- 기존의 쇼핑몰 필터 예시<br><br>
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/f1bfe3a8-db21-4479-8483-0ed1bf21b49f" width="500" height="250">
-  <img src="https://github.com/user-attachments/assets/61a04c1c-a8b7-4d44-bb90-e68a3f42dac8" width="500" height="250">
+  <img src="https://github.com/user-attachments/assets/2a74e63f-db82-47b3-92e6-2039a6c05a23" width="800">
+</div>
+<br><br>
+
+- 개선한 쇼핑몰 필터
+- 성별, 계절, 색상, 상황 등의 옵션 선택을 바탕으로 의류 추천<br><br>
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/62231a11-8a3d-431e-befb-979538564520" width="800" align="center">
+  <img src="https://github.com/user-attachments/assets/33959d0a-b722-448f-9eca-b68a2ef397fa" width="800" align="center">
+  <img src="https://github.com/user-attachments/assets/9d8f6c2b-a215-443e-9201-47c94414b278" width="800">
+  <img src="https://github.com/user-attachments/assets/7c772156-8f6f-4905-8aa7-73f2b4e03984" width="800">
+</div>
+<br><br>
+
+- 추천된 의류 목록에서 키워드를 이용해 한번 더 검색할 수 있는 결과 내 재검색 기능 제공<br><br>
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/1effa496-aaaf-4ccd-bba9-532a705838d9" width="800">
 </div>
 
-## 제품 상세 페이지
-- 제품에 대한 설명과 구매 후기등을 볼 수 있음
-- 좋아요, 싫어요 아이콘으로 제품에 대한 여러 의견 확인 가능
+## other components
+
+<br>
+<p align="center">제품 상세 페이지에서 구매자들의 평가를 쉽게 알 수 있도록 요소 배치 (좋아요, 싫어요)</p>
+<br><br>
+
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/9b328275-e583-4b2f-b7fa-17a5316d6929" width="500">
-  <img src="https://github.com/user-attachments/assets/a184c5c0-bc84-4731-8694-7828daac778d" width="500">  
+  <img src="https://github.com/user-attachments/assets/d2206b3b-0103-4801-af26-18052422f396" width="600" align="center">
+  <img src="https://github.com/user-attachments/assets/afa94fdc-11f9-4249-b922-ca3acb634b60" width="600">
 </div>
-
-## 제품 검색 페이지
-- 기본적인 검색 기능
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/be66f378-ebd6-4879-9967-980e39c9e462" width="500">
-</div>
-
-## 설문을 통한 검색 페이지
-- 성별, 계절, 색상, 상황 옵션을 선택하는 설문을 통한 의류 추천 
-- 추천된 의류들 안에서 한번 더 검색할 수 있는 결과 내 재검색
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/6ec5d7d1-c651-4fe1-8caf-576fe7c71cb2" width="500" height="250" align="center">
-  <img src="https://github.com/user-attachments/assets/ea989624-27e1-4e3c-9259-869522620e97" width="500" height="250" align="center">
-  <img src="https://github.com/user-attachments/assets/402ba7a5-5136-43bd-946c-169340fd9e2e" width="500" height="120">
-</div>
-
-
-
