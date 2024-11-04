@@ -12,7 +12,7 @@
 
 ## 메인 페이지
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/f1bfe3a8-db21-4479-8483-0ed1bf21b49f" width="500" height="250" align="center">
+  <img src="https://github.com/user-attachments/assets/f1bfe3a8-db21-4479-8483-0ed1bf21b49f" width="500" height="250">
   <img src="https://github.com/user-attachments/assets/61a04c1c-a8b7-4d44-bb90-e68a3f42dac8" width="500" height="250">
 </div>
 
@@ -20,7 +20,7 @@
 - 제품에 대한 설명과 구매 후기등을 볼 수 있음
 - 좋아요, 싫어요 아이콘으로 제품에 대한 여러 의견 확인 가능
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/9b328275-e583-4b2f-b7fa-17a5316d6929" width="500" align="center">
+  <img src="https://github.com/user-attachments/assets/9b328275-e583-4b2f-b7fa-17a5316d6929" width="500">
   <img src="https://github.com/user-attachments/assets/a184c5c0-bc84-4731-8694-7828daac778d" width="500">  
 </div>
 
