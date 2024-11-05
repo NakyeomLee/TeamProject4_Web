@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/user-attachments/assets/d90030ef-428d-43f2-ad57-5be814b17067" width="150"></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/d90030ef-428d-43f2-ad57-5be814b17067" width="100"></p>
 <h1 align="center">
   WEB프로젝트 (NO MORE SHINSA)
 </h1>
